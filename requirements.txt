@@ -1,0 +1,23 @@
+# Music Genre Classification - Required Python Packages
+
+# Core data science libraries
+numpy>=1.21.0
+pandas>=1.3.0
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Machine learning libraries
+scikit-learn>=1.0.0
+tensorflow>=2.8.0
+keras>=2.8.0
+
+# Audio processing
+librosa>=0.9.0
+sounddevice>=0.4.0
+
+# Utilities
+tqdm>=4.62.0
+jupyter>=1.0.0
+
+# Optional: For better performance
+# numba>=0.56.0
