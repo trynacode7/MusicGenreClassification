@@ -1,0 +1,4 @@
+chunk_index,chunk_start,chunk_end,predicted_genre,confidence,latency
+0,0.0,3.0,Unknown,0.0,0.40189146995544434
+1,2.5,5.5,Unknown,0.0,0.4173099994659424
+2,5.0,8.0,Unknown,0.0,0.503788948059082

@@ -1,75 +1,19 @@
-# Python
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
 
 # Virtual Environment
 venv/
 env/
 ENV/
-env.bak/
-venv.bak/
 
 # IDE
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
 
-# Jupyter Notebook
+# Jupyter Notebook checkpoints
 .ipynb_checkpoints
-
-# Model files (can be large)
-models/*.pkl
-models/*.h5
-models/*.joblib
-models/*.sav
-
-# Results and outputs
-results/*.png
-results/*.jpg
-results/*.csv
-results/*.json
-!results/.gitkeep
-
-# Data files (if they become too large)
-# Data/genres_original/
-# Data/images_original/
-# Data/*.csv
-
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Logs
-*.log
-logs/
 
 # Temporary files
 *.tmp
@@ -77,8 +21,15 @@ logs/
 temp/
 tmp/
 
-# Audio recordings (for real-time prediction testing)
-recordings/
-*.wav
-*.mp3
-*.flac
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Keep everything else, so your friend can replicate:
+# - models/
+# - results/
+# - Data/

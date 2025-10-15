@@ -1,0 +1,11 @@
+# Requirements for Music Genre Classification Dashboard
+
+# Core dependencies
+streamlit>=1.28.0
+plotly>=5.15.0
+pandas>=1.5.0
+numpy>=1.24.0
+
+# Optional dependencies for enhanced functionality
+matplotlib>=3.6.0
+seaborn>=0.12.0

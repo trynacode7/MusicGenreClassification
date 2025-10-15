@@ -49,7 +49,7 @@ from utils import (
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def train_random_forest(X_train, y_train, X_val, y_val, n_estimators=100, random_state=42, verbose=True):
+def train_random_forest(X_train, y_train, X_val, y_val, n_estimators=500, max_depth=20, min_samples_split=5, min_samples_leaf=2, random_state=42, verbose=True):
     """
     Train a Random Forest Classifier.
     
@@ -70,9 +70,12 @@ def train_random_forest(X_train, y_train, X_val, y_val, n_estimators=100, random
         logger.info(f"Training set shape: {X_train.shape}")
         logger.info(f"Validation set shape: {X_val.shape}")
     
-    # Initialize Random Forest
+    # Initialize Random Forest with better parameters
     rf = RandomForestClassifier(
         n_estimators=n_estimators,
+        max_depth=max_depth,
+        min_samples_split=min_samples_split,
+        min_samples_leaf=min_samples_leaf,
         random_state=random_state,
         n_jobs=-1,  # Use all available cores
         verbose=1 if verbose else 0
@@ -100,7 +103,7 @@ def train_random_forest(X_train, y_train, X_val, y_val, n_estimators=100, random
     
     return rf, train_accuracy, val_accuracy, train_f1, val_f1
 
-def train_svm(X_train, y_train, X_val, y_val, kernel='rbf', C=1.0, gamma='scale', random_state=42, verbose=True):
+def train_svm(X_train, y_train, X_val, y_val, kernel='rbf', C=10.0, gamma='auto', random_state=42, verbose=True):
     """
     Train a Support Vector Machine Classifier.
     
@@ -124,12 +127,14 @@ def train_svm(X_train, y_train, X_val, y_val, kernel='rbf', C=1.0, gamma='scale'
         logger.info(f"Validation set shape: {X_val.shape}")
         logger.info(f"SVM Parameters: kernel={kernel}, C={C}, gamma={gamma}")
     
-    # Initialize SVM
+    # Initialize SVM with better parameters
     svm = SVC(
         kernel=kernel,
         C=C,
         gamma=gamma,
         random_state=random_state,
+        probability=True,  # Enable probability estimates
+        class_weight='balanced',  # Handle class imbalance
         verbose=1 if verbose else 0
     )
     

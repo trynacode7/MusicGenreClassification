@@ -1,0 +1,4 @@
+file_name,true_genre,predicted_genre,confidence,latency
+synthetic_blues.wav,synthetic,Unknown,0.0,0.48140406608581543
+synthetic_classical.wav,synthetic,Unknown,0.0,0.4013962745666504
+synthetic_rock.wav,synthetic,Unknown,0.0,0.3840620517730713
