@@ -1,24 +1,28 @@
 """
-Audio Dashboard Launcher for Music Genre Classification (Improved Models)
+Audio Dashboard Launcher for Music Genre Classification (Current Models)
 
 This script launches the Streamlit audio dashboard that accepts .wav files
-and processes them using pre-trained improved models.
+and processes them using the models available in your models folder.
 """
 
 import os
 import sys
+import io
 import subprocess
 from pathlib import Path
+
+# Force UTF-8 encoding for stdout and stderr
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 def check_dependencies():
     """Check if required dependencies are installed."""
     required_packages = [
         'streamlit', 'plotly', 'pandas', 'numpy', 
-        'librosa', 'scikit-learn', 'matplotlib'
+        'librosa', 'sklearn', 'matplotlib', 'tensorflow'
     ]
     
     missing_packages = []
-    
     for package in required_packages:
         try:
             __import__(package)
@@ -26,20 +30,22 @@ def check_dependencies():
             missing_packages.append(package)
     
     if missing_packages:
-        print(f"Missing packages: {', '.join(missing_packages)}")
+        print(f"[WARNING] Missing packages: {', '.join(missing_packages)}")
         return False
     
-    print("✓ All required dependencies available")
+    print("[OK] All required dependencies available")
     return True
 
 def check_models():
-    """Check if improved model files exist."""
+    """Check if required model files exist. Warn instead of blocking."""
     models_dir = Path("models")
     required_files = [
-        "scaler_improved.pkl",
-        "label_encoder_improved.pkl",
-        "svm_improved.pkl",
-        "random_forest_improved.pkl"
+        "label_encoder.pkl",
+        "random_forest_model.pkl",
+        "svm_model.pkl",
+        "cnn_model_transfer.keras",
+        "cnn_label_encoder.pkl",
+        "scaler.pkl"  # use scaler.pkl instead of scaler_improved.pkl
     ]
     
     missing_files = []
@@ -48,12 +54,11 @@ def check_models():
             missing_files.append(file)
     
     if missing_files:
-        print(f"Missing improved model files: {', '.join(missing_files)}")
-        print("Please run model training first:")
-        print("python src/model_training.py")
-        return False
+        print(f"[WARNING] Missing model files: {', '.join(missing_files)}")
+        print("The dashboard will attempt to run with available models.")
+        return True  # allow launch even if some models are missing
     
-    print("✓ All required improved model files found")
+    print("✓ All required model files found")
     return True
 
 def install_dependencies():
@@ -62,12 +67,12 @@ def install_dependencies():
     try:
         subprocess.run([
             sys.executable, "-m", "pip", "install", 
-            "-r", "requirements_audio_dashboard.txt"
-        ])
+            "-r", "requirements.txt"
+        ], check=True)
         print("✓ Dependencies installed successfully")
         return True
     except Exception as e:
-        print(f"Error installing dependencies: {e}")
+        print(f"[ERROR] Failed to install dependencies: {e}")
         return False
 
 def run_audio_dashboard():
@@ -79,21 +84,21 @@ def run_audio_dashboard():
     print("- Real-time streaming simulation")
     print("- Genre probability visualization")
     print("- Spectrogram and waveform display")
-    print("- Multiple model support (SVM, Random Forest, CNN)")
+    print("- Multiple model support (Random Forest, SVM, CNN)")
     
     try:
         # Change to the project directory
         os.chdir(Path(__file__).parent)
         
-        # Run streamlit
+        # Run streamlit dashboard
         subprocess.run([
             sys.executable, "-m", "streamlit", "run", 
             "src/streamlit_audio_dashboard.py",
             "--server.port", "8501",
             "--server.address", "localhost"
-        ])
+        ], check=True)
     except Exception as e:
-        print(f"Error launching dashboard: {e}")
+        print(f"[ERROR] Could not launch dashboard: {e}")
 
 def main():
     """Main launcher function."""
@@ -103,18 +108,19 @@ def main():
     if not check_dependencies():
         print("\nInstalling missing dependencies...")
         if not install_dependencies():
-            print("Failed to install dependencies. Please install manually:")
-            print("pip install -r requirements_audio_dashboard.txt")
-            return
+            print("Please install dependencies manually:")
+            print("pip install -r requirements.txt")
     
     # Check models
-    if not check_models():
-        print("\nPlease train improved models first:")
-        print("python src/model_training.py")
-        return
+    check_models()
     
-    print("\nAll checks passed! Launching dashboard...")
-    run_audio_dashboard()
+    print("\nAll checks complete! Launching dashboard...\n")
+    
+    try:
+        run_audio_dashboard()
+    except KeyError as e:
+        print(f"[WARNING] Missing model key {e}. Continuing with available models...")
+        run_audio_dashboard()
 
 if __name__ == "__main__":
     main()

@@ -307,3 +307,35 @@ def validate_data_integrity(file_path):
         validation_results['is_valid'] = False
     
     return validation_results
+if __name__ == "__main__":
+    # Use your actual CSV paths here
+    csv_30 = "Data/features_30_sec.csv"
+    csv_3 = "Data/features_3_sec.csv"
+
+    for csv_file in [csv_30, csv_3]:
+        print(f"\n=== Processing {csv_file} ===")
+        try:
+            # Load features
+            df, X, y = load_features(csv_file)
+            print("DataFrame shape:", df.shape)
+            print("Features shape:", X.shape)
+            print("Labels shape:", y.shape)
+            print("Unique labels:", np.unique(y))
+
+            # Encode labels
+            y_enc, encoder, mapping = encode_labels(y)
+            print("First 10 encoded labels:", y_enc[:10])
+            # Check all unique encoded labels
+            print("Unique encoded labels:", np.unique(y_enc))
+            print("Label mapping:", mapping)
+
+            # Split data
+            X_train, X_val, X_test, y_train, y_val, y_test = split_data(X, y_enc)
+            print(f"Train: {X_train.shape[0]}, Validation: {X_val.shape[0]}, Test: {X_test.shape[0]}")
+
+            # Scale features
+            X_train_s, X_val_s, X_test_s, scaler = scale_features(X_train, X_val, X_test)
+            print("Scaled train features shape:", X_train_s.shape)
+
+        except Exception as e:
+            print(f"Error processing {csv_file}: {e}")
