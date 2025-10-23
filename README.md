@@ -1,10 +1,9 @@
-```markdown
 # 🎵 Music Genre Classification from Audio Signals
 
 **Project ID:** 10  
 **Team:**  
 - Diya Prakash — SRN: PES2UG23CS184  
-- Erin Joseph — SRN: PES2UG23CS186  
+- Erin Joseph — SRN: PES2UG23CS186
 
 ---
 
@@ -15,7 +14,7 @@ It supports:
 
 - 📊 **Interactive Streamlit dashboard** for real-time visualization  
 - ⏱️ **Near-real-time streaming simulation** via the dashboard  
-- 🧠 **Traditional ML (SVM, Random Forest)** and **experimental CNN (deep learning)**  
+- 🧠 **Traditional ML (SVM, Random Forest)** and **experimental CNN (deep learning)**
 
 > **Note:** The system processes only **pre-recorded audio files**. Live microphone input has been removed.
 
@@ -26,15 +25,13 @@ It supports:
 - Classify music into **10 genres:** blues, classical, country, disco, hiphop, jazz, metal, pop, reggae, rock  
 - Provide accurate and efficient predictions using **Random Forest** and **SVM**  
 - Enable near-real-time simulation and live visualization through a dashboard  
-- Offer an intuitive, interactive interface for audio-based genre classification  
+- Offer an intuitive, interactive interface for audio-based genre classification
 
 ---
 
 ## 📁 Dataset — GTZAN Music Genre Dataset
 
 **Structure:**
-
-```
 
 Data/
 ├── genres_original/       # Original 30-sec audio files
