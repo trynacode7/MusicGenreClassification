@@ -51,7 +51,7 @@ Data/
 ├── features_30_sec.csv    # Pre-extracted 30-second features
 └── features_3_sec.csv     # Pre-extracted 3-second chunk features (for streaming simulation)
 
-````
+```
 
 **Details:**
 
@@ -83,7 +83,7 @@ Data/
 ```bash
 git clone <repo_url>
 cd <repo_folder>
-````
+```
 
 ### 2️⃣ Create and Activate Virtual Environment
 
