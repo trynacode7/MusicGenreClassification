@@ -51,7 +51,7 @@ Data/
 **Details:**
 
 - 1,000 audio files (100 per genre), 30 seconds each  
-- Supported formats: `.wav`, `.mp3`, `.flac`, `.m4a`  
+- Supported formats: `.wav`
 - Features extracted using **Librosa**:  
   - MFCC, chroma, spectral contrast, tonnetz, zero-crossing rate, tempo, etc.  
   - Combined into a **57-dimensional GTZAN feature vector**
