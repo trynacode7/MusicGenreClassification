@@ -32,7 +32,7 @@ It supports:
 ## 📁 Dataset — GTZAN Music Genre Dataset
 
 **Structure:**
-
+```
 Data/
 ├── genres_original/       # Original 30-sec audio files
 │   ├── blues/
@@ -47,9 +47,7 @@ Data/
 │   └── rock/
 ├── features_30_sec.csv    # Pre-extracted 30-second features
 └── features_3_sec.csv     # Pre-extracted 3-second chunk features (for streaming simulation)
-
 ```
-
 **Details:**
 
 - 1,000 audio files (100 per genre), 30 seconds each  
