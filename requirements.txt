@@ -7,6 +7,7 @@ numpy>=1.24.0
 # Audio processing
 librosa>=0.10.0
 soundfile>=0.12.0
+scipy>=1.10.0
 
 # Machine learning
 scikit-learn>=1.3.0
@@ -16,5 +17,5 @@ joblib>=1.3.0
 matplotlib>=3.6.0
 seaborn>=0.12.0
 
-# Optional: TensorFlow for CNN model
+# Optional: TensorFlow for CNN model (install only if you plan to use CNN)
 tensorflow>=2.13.0

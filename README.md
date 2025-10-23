@@ -1,214 +1,193 @@
+Perfect — here’s your **clean, final, submission-ready `README.md`** after removing **Batch Processing** and **Streaming Simulation**, keeping only the **Streamlit dashboard**, and adding **`features_3_sec.csv`** to the dataset section.
+
+Everything is polished for clarity, structure, and professionalism 👇
+
+---
+
 ```markdown
-# Music Genre Classification System (Refactored)
+# 🎵 Music Genre Classification from Audio Signals
 
-## 🎵 Overview
+**Project ID:** 10  
+**Team:**  
+- Diya Prakash — SRN: PES2UG23CS184  
+- Erin Joseph — SRN: PES2UG23CS186  
 
-This project provides a **robust, modular music genre classification system** using the GTZAN dataset. It supports:
+---
 
-- **Batch processing** of pre-recorded audio files  
-- **Near-real-time streaming simulation**  
-- **Interactive dashboard** for live visualization  
-- **Traditional ML (SVM, Random Forest)** and **deep learning (CNN, experimental)**
+## 📘 Overview
 
-> **Note:** Live microphone input has been removed. The system now processes only pre-recorded audio files.
+This project implements a **robust, modular music genre classification system** using the **GTZAN dataset**.  
+It supports:
+
+- 📊 **Interactive Streamlit dashboard** for real-time visualization  
+- ⏱️ **Near-real-time streaming simulation** via the dashboard  
+- 🧠 **Traditional ML (SVM, Random Forest)** and **experimental CNN (deep learning)**  
+
+> **Note:** The system processes only **pre-recorded audio files**. Live microphone input has been removed.
 
 ---
 
 ## 🎯 Objectives
 
-- Classify music recordings into 10 genres: blues, classical, country, disco, hiphop, jazz, metal, pop, reggae, rock  
-- Provide accurate and efficient predictions using Random Forest and SVM  
-- Compare model performance and visualize results  
-- Simulate real-time streaming of audio  
-- Offer a user-friendly dashboard for monitoring predictions  
+- Classify music into **10 genres:** blues, classical, country, disco, hiphop, jazz, metal, pop, reggae, rock  
+- Provide accurate and efficient predictions using **Random Forest** and **SVM**  
+- Enable near-real-time simulation and live visualization through a dashboard  
+- Offer an intuitive, interactive interface for audio-based genre classification  
 
 ---
 
-## 📁 Dataset
+## 📁 Dataset — GTZAN Music Genre Dataset
 
-Uses **GTZAN Dataset**:
+**Structure:**
 
 ```
 
 Data/
-├── genres_original/       # Original audio files
+├── genres_original/       # Original 30-sec audio files
 │   ├── blues/
 │   ├── classical/
 │   ├── country/
-│   └── ...
-└── features_30_sec.csv    # Pre-extracted features (optional)
+│   ├── disco/
+│   ├── hiphop/
+│   ├── jazz/
+│   ├── metal/
+│   ├── pop/
+│   ├── reggae/
+│   └── rock/
+├── features_30_sec.csv    # Pre-extracted 30-second features
+└── features_3_sec.csv     # Pre-extracted 3-second chunk features (for streaming simulation)
 
 ````
 
-- 1,000 audio recordings (100 per genre) in WAV format  
-- Support for multiple audio formats: `.wav`, `.mp3`, `.flac`, `.m4a`  
-- Features: 57-dimensional GTZAN feature vector (spectral, MFCC, chroma, rhythm, energy)  
+**Details:**
+
+- 1,000 audio files (100 per genre), 30 seconds each  
+- Supported formats: `.wav`, `.mp3`, `.flac`, `.m4a`  
+- Features extracted using **Librosa**:  
+  - MFCC, chroma, spectral contrast, tonnetz, zero-crossing rate, tempo, etc.  
+  - Combined into a **57-dimensional GTZAN feature vector**
 
 ---
 
-## 🛠️ Models Supported
+## 🧠 Models Supported
 
 | Model | Accuracy | Notes |
 |-------|----------|-------|
-| **SVM** | 71.0% | Best performing, high-dimensional data handling |
-| Random Forest | 69.5% | Interpretable, robust to overfitting |
-| CNN | 10.0% | Experimental, deep learning approach, limited data |
+| **SVM** | 71.0% | Best performing — handles high-dimensional features well |
+| Random Forest | 69.5% | Interpretable and robust to overfitting |
+| CNN | 10.0% | Experimental — limited dataset |
+
+> For best accuracy and consistency, use **SVM**.  
+> CNN models are optional and require TensorFlow.
 
 ---
 
 ## ⚙️ Installation
 
-### 1. Clone repository
+### 1️⃣ Clone Repository
 
 ```bash
 git clone <repo_url>
 cd <repo_folder>
 ````
 
-### 2. Create virtual environment
+### 2️⃣ Create and Activate Virtual Environment
 
 ```bash
 python -m venv venv
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
 ```
 
-### 3. Activate environment
-
-* **Windows:** `venv\Scripts\activate`
-* **macOS/Linux:** `source venv/bin/activate`
-
-### 4. Install dependencies
+### 3️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Required dependencies:
+**Key Dependencies:**
 
 ```
-numpy, pandas, librosa, scikit-learn, matplotlib, seaborn, tkinter, joblib, tensorflow (optional)
-```
-
----
-
-## 🚀 Quick Start
-
-### 1. Batch Processing
-
-```python
-from src.refactored_genre_classifier import MusicGenreClassifier
-
-classifier = MusicGenreClassifier()
-results = classifier.batch_process_songs(
-    input_dir="Data/genres_original",
-    output_file="batch_results.csv",
-    model_name="svm"
-)
-print(f"Processed {len(results)} files")
-```
-
-**Output CSV Columns:**
-
-| Column          | Description               |
-| --------------- | ------------------------- |
-| file_name       | Audio file name           |
-| file_path       | Full path                 |
-| true_genre      | Ground truth              |
-| predicted_genre | Model prediction          |
-| confidence      | Probability (0-1)         |
-| latency         | Processing time (seconds) |
-| model           | Model used                |
-
----
-
-### 2. Streaming Simulation (Near-Real-Time)
-
-```python
-results = classifier.streaming_simulation(
-    file_path="Data/genres_original/blues/blues.00000.wav",
-    output_file="streaming_results.csv",
-    model_name="svm"
-)
-print(f"Processed {len(results)} chunks")
-```
-
-**Output CSV Columns:**
-
-| Column          | Description         |
-| --------------- | ------------------- |
-| chunk_start     | Start time (s)      |
-| chunk_end       | End time (s)        |
-| chunk_index     | Sequence number     |
-| true_genre      | Ground truth        |
-| predicted_genre | Model prediction    |
-| confidence      | Probability (0-1)   |
-| latency         | Processing time (s) |
-| model           | Model used          |
-
-**Chunk Parameters (configurable):**
-
-```python
-classifier.chunk_duration = 3.0    # seconds
-classifier.chunk_overlap = 0.5     # seconds
+numpy, pandas, librosa, scikit-learn, matplotlib, seaborn, streamlit, joblib, tensorflow (optional)
 ```
 
 ---
 
-### 3. Interactive Dashboard
+## 🚀 Quick Start — Interactive Streamlit Dashboard
 
-```python
-dashboard = classifier.create_dashboard()
-dashboard.run()  # Opens GUI
+Launch the **Streamlit dashboard** for audio classification:
+
+```bash
+python run_audio_dashboard.py
 ```
 
-Features:
+or directly:
 
-* Genre probability bar chart (live updates)
-* Time-series plot of streaming results
-* File selection and model comparison
-* Start/stop streaming controls
+```bash
+streamlit run app.py
+```
+
+**Features:**
+
+* 🎵 Upload `.wav` or `.mp3` files for instant prediction
+* 📈 Real-time probability visualization for each genre
+* ⏱️ Simulate streaming/chunked classification
+* 🔁 Compare SVM vs Random Forest model predictions
+* 💾 View results and confidence scores in the dashboard
+
+**Note:**
+Make sure the following files are present before running:
+
+```
+models/
+├── scaler.pkl
+├── label_encoder.pkl
+├── random_forest_model.pkl
+├── svm_model.pkl
+└── cnn_model.keras  (optional)
+```
 
 ---
 
-## 📊 Performance
+## 📊 Performance Summary
 
-| Mode      | Model         | Accuracy | Latency         | Throughput          |
-| --------- | ------------- | -------- | --------------- | ------------------- |
-| Batch     | SVM           | 71.0%    | 0.5-0.6 s/file  | ~87 files/s         |
-| Batch     | Random Forest | 69.5%    | 0.5-0.6 s/file  | ~87 files/s         |
-| Streaming | SVM           | 71.0%    | 0.5-0.6 s/chunk | ~0.79 predictions/s |
-| Streaming | Random Forest | 69.5%    | 0.5-0.6 s/chunk | ~0.79 predictions/s |
+| Model         | Accuracy | Avg Latency     | Mode         |
+| ------------- | -------- | --------------- | ------------ |
+| SVM           | 71.0%    | 0.5–0.6 s/chunk | Streaming    |
+| Random Forest | 69.5%    | 0.5–0.6 s/chunk | Streaming    |
+| CNN           | 10.0%    | 1.2–1.5 s/chunk | Experimental |
 
-> CNN is experimental and underperforms due to limited training data.
+> CNN underperforms due to limited data but demonstrates potential for future deep-learning approaches.
 
 ---
 
-## 🔧 Troubleshooting
+## 🧰 Troubleshooting
 
-* **Model Loading Error**: Retrain models
+**Model Loading Error**
 
-  ```bash
-  python src/model_training.py
-  ```
+```bash
+python src/model_training.py
+```
 
-* **Missing Dependencies**:
+**Missing Dependencies**
 
-  ```bash
-  pip install -r requirements.txt
-  ```
+```bash
+pip install -r requirements.txt
+```
 
-* **Audio File Format Issues**: Ensure supported formats (.wav, .mp3, .flac, .m4a) and correct file permissions.
+**Dashboard Not Launching**
 
-* **Dashboard Not Launching**:
+* Ensure `streamlit` is installed
+* Run from the repository root directory
+* For headless environments, use saved preprocessed feature CSVs
 
-  * Ensure `tkinter` is installed
-  * Check display settings for headless systems
-  * CLI alternatives: batch or streaming simulation
+**Performance Optimization**
 
-**Performance Optimization:**
-
-* SSD storage for faster file I/O
+* Use SSD storage for faster I/O
 * Reduce chunk overlap for faster streaming
-* Use SVM for best accuracy, Random Forest for speed
+* Use SVM for best accuracy and speed trade-off
 
 ---
 
@@ -217,39 +196,69 @@ Features:
 ```
 src/
 ├── refactored_genre_classifier.py  # Main system
-├── example_usage.py                 # Sample usage
-├── test_refactored_system.py        # Test suite
-├── model_training.py                # Model training
-├── utils.py                         # Utilities
-└── evaluation.py                    # Evaluation scripts
+├── model_training.py               # Model training and saving
+├── evaluation.py                   # Evaluation and metrics visualization
+├── utils.py                        # Feature extraction helpers
+├── example_usage.py                # Example code
+└── test_refactored_system.py       # Unit tests
 
 models/
 ├── scaler.pkl
 ├── label_encoder.pkl
 ├── random_forest_model.pkl
 ├── svm_model.pkl
-└── cnn_model.keras
+└── cnn_model.keras  (optional)
 
 Data/
 ├── genres_original/                 # GTZAN dataset
-└── features_30_sec.csv
+├── features_30_sec.csv              # 30-sec features
+└── features_3_sec.csv               # 3-sec chunk features
 
-results/                              # Output CSVs, visualizations
+results/                             # Output CSVs and visualizations
+
+app.py                               # Streamlit dashboard UI
+run_audio_dashboard.py               # Streamlit launcher
+requirements.txt                     # Dependencies
 ```
 
 ---
 
-## 📝 Contributing
+## 🧑‍💻 Development Notes
 
-* Modular and well-documented system
-* Easy to extend with new models
-* Batch, streaming, and dashboard features fully tested
+* `models/` must contain:
+
+  * `scaler.pkl`, `label_encoder.pkl`
+  * At least one classifier (`svm_model.pkl` or `random_forest_model.pkl`)
+* CNN models are optional but require TensorFlow
+* Retrain models anytime using:
+
+  ```bash
+  python src/model_training.py
+  ```
+
+**To run the dashboard only, keep:**
+
+```
+app.py
+run_audio_dashboard.py
+models/
+requirements.txt
+Data/
+```
 
 ---
 
 ## 🏆 Acknowledgments
 
-* GTZAN dataset creators
-* Scikit-learn, TensorFlow, Librosa teams
-* Open source machine learning community
+* **GTZAN Dataset** creators
+* **Librosa**, **Scikit-learn**, **Streamlit**, and **TensorFlow** teams
+* Open-source ML and audio analysis community
 
+---
+
+## 📬 Contact
+
+For any queries:
+**Diya Prakash** — PES2UG23CS184
+**Erin Joseph** — PES2UG23CS186
+```
