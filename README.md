@@ -1,9 +1,3 @@
-Perfect — here’s your **clean, final, submission-ready `README.md`** after removing **Batch Processing** and **Streaming Simulation**, keeping only the **Streamlit dashboard**, and adding **`features_3_sec.csv`** to the dataset section.
-
-Everything is polished for clarity, structure, and professionalism 👇
-
----
-
 ```markdown
 # 🎵 Music Genre Classification from Audio Signals
 
